@@ -1,0 +1,34 @@
+# Let's parse the content of the languages.txt file and create a JSON structure
+# We'll structure the JSON as a dictionary where each key is a source language
+# and the value is a list of target languages it can be translated into.
+
+languages_data = """
+zh（简体中文）：en（英语）、ja（日语）、ko（韩语）、fr（法语）、es（西班牙语）、it（意大利语）、de（德语）、tr（土耳其语）、ru（俄语）、pt（葡萄牙语）、vi（越南语）、id（印尼语）、th（泰语）、ms（马来语）
+zh-TW（繁体中文）：en（英语）、ja（日语）、ko（韩语）、fr（法语）、es（西班牙语）、it（意大利语）、de（德语）、tr（土耳其语）、ru（俄语）、pt（葡萄牙语）、vi（越南语）、id（印尼语）、th（泰语）、ms（马来语）
+en（英语）：zh（中文）、ja（日语）、ko（韩语）、fr（法语）、es（西班牙语）、it（意大利语）、de（德语）、tr（土耳其语）、ru（俄语）、pt（葡萄牙语）、vi（越南语）、id（印尼语）、th（泰语）、ms（马来语）、ar（阿拉伯语）、hi（印地语）
+ja（日语）：zh（中文）、en（英语）、ko（韩语）
+ko（韩语）：zh（中文）、en（英语）、ja（日语）
+fr（法语）：zh（中文）、en（英语）、es（西班牙语）、it（意大利语）、de（德语）、tr（土耳其语）、ru（俄语）、pt（葡萄牙语）
+es（西班牙语）：zh（中文）、en（英语）、fr（法语）、it（意大利语）、de（德语）、tr（土耳其语）、ru（俄语）、pt（葡萄牙语）
+it（意大利语）：zh（中文）、en（英语）、fr（法语）、es（西班牙语）、de（德语）、tr（土耳其语）、ru（俄语）、pt（葡萄牙语）
+de（德语）：zh（中文）、en（英语）、fr（法语）、es（西班牙语）、it（意大利语）、tr（土耳其语）、ru（俄语）、pt（葡萄牙语）
+tr（土耳其语）：zh（中文）、en（英语）、fr（法语）、es（西班牙语）、it（意大利语）、de（德语）、ru（俄语）、pt（葡萄牙语）
+ru（俄语）：zh（中文）、en（英语）、fr（法语）、es（西班牙语）、it（意大利语）、de（德语）、tr（土耳其语）、pt（葡萄牙语）
+pt（葡萄牙语）：zh（中文）、en（英语）、fr（法语）、es（西班牙语）、it（意大利语）、de（德语）、tr（土耳其语）、ru（俄语）
+vi（越南语）：zh（中文）、en（英语）
+id（印尼语）：zh（中文）、en（英语）
+th（泰语）：zh（中文）、en（英语）
+ms（马来语）：zh（中文）、en（英语）
+ar（阿拉伯语）：en（英语）
+hi（印地语）：en（英语）
+"""
+
+# Split the data into lines
+lines = languages_data.strip().split('\n')
+
+# Process each line to extract the languages and their translation targets
+language_dict = {}
+for line in lines:
+    # Split the line into source language and target languages
+    source, targets_str = line.split('：')
+    source_code = source.split('（')[1][:-1]  # Extract the source

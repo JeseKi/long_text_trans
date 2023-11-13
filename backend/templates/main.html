@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Translation Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+        }
+        .phrase {
+            margin: 10px 0;
+        }
+        .phrase span {
+            display: block;
+            margin: 5px 0;
+        }
+        .language-selector {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ title }}</h1>
+        <div class="language-selector">
+            <!-- Language selection can be implemented here -->
+        </div>
+        {% for phrase in phrases %}
+            <div class="phrase">
+                <span class="english">{{ phrase.english }}</span>
+                <span class="translation">{{ phrase.translation }}</span>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

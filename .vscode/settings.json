@@ -1,0 +1,5 @@
+"github.hosts": [{
+    "host": "api.github.com",
+    "token": "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",
+    "protocol": "https"
+}]
