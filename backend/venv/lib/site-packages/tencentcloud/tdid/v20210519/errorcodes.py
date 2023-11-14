@@ -1,0 +1,57 @@
+# -*- coding: utf8 -*-
+# Copyright (c) 2017-2021 THL A29 Limited, a Tencent company. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# CAM签名/鉴权错误。
+AUTHFAILURE = 'AuthFailure'
+
+# 操作失败。
+FAILEDOPERATION = 'FailedOperation'
+
+# 用户接口鉴权失败
+FAILEDOPERATION_INVALIDAUTH = 'FailedOperation.InvalidAuth'
+
+# 操作失败。
+FAILEDOPERATION_OPERATIONEXCEPTION = 'FailedOperation.OperationException'
+
+# 内部错误。
+INTERNALERROR = 'InternalError'
+
+# 服务器异常。
+INTERNALERROR_SERVEREXCEPTION = 'InternalError.ServerException'
+
+# 服务错误，请稍后重试，或联系客服
+INTERNALERROR_SERVICEERROR = 'InternalError.ServiceError'
+
+# 服务异常。
+INTERNALERROR_SERVICEPANIC = 'InternalError.ServicePanic'
+
+# 服务错误，请稍后重试，或联系客服
+INTERNALERROR_UNKNOWNERROR = 'InternalError.UnknownError'
+
+# 参数错误。
+INVALIDPARAMETER = 'InvalidParameter'
+
+# 参数取值错误。
+INVALIDPARAMETERVALUE = 'InvalidParameterValue'
+
+# 请求参数格式错误，请按照格式要求重新填写
+INVALIDPARAMETERVALUE_ILLEGALVALUE = 'InvalidParameterValue.IllegalValue'
+
+# 资源不存在。
+RESOURCENOTFOUND = 'ResourceNotFound'
+
+# 操作不支持。
+UNSUPPORTEDOPERATION = 'UnsupportedOperation'

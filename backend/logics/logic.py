@@ -47,34 +47,3 @@ def split_text(text):
 # Test the split_text function with some debugging output
 for segment in split_text("A very long text..."):
     print(len(segment), segment[:50] + "...")  # Print the length and the beginning of each segment
-
-def translate_text(text):
-    translated_text = ""
-    
-    for segment in split_text(text):
-        try:
-            cred = credential.Credential(ID, KEY)
-            httpProfile = HttpProfile()
-            httpProfile.endpoint = "tmt.tencentcloudapi.com"
-            clientProfile = ClientProfile()
-            clientProfile.httpProfile = httpProfile
-            client = tmt_client.TmtClient(cred, "ap-beijing", clientProfile)
-            req = models.TextTranslateRequest()
-            params = {
-                "SourceText": segment,
-                "Source": "en",
-                "Target": "zh",
-                "ProjectId": 0
-            }
-            req.from_json_string(json.dumps(params))
-            resp = client.TextTranslate(req)
-            translated_text += json.loads(resp.to_json_string())["TargetText"]
-            
-            # Delay for 0.19 seconds
-            time.sleep(0.19)
-            
-        except TencentCloudSDKException as err:
-            print(err)
-            translated_text += segment
-
-    return translated_text

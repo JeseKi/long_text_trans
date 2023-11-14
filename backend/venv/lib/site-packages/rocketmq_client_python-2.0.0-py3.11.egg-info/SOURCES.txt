@@ -1,0 +1,17 @@
+MANIFEST.in
+README.md
+setup.cfg
+setup.py
+rocketmq/__init__.py
+rocketmq/client.py
+rocketmq/consts.py
+rocketmq/exceptions.py
+rocketmq/ffi.py
+rocketmq_client_python.egg-info/PKG-INFO
+rocketmq_client_python.egg-info/SOURCES.txt
+rocketmq_client_python.egg-info/dependency_links.txt
+rocketmq_client_python.egg-info/requires.txt
+rocketmq_client_python.egg-info/top_level.txt
+samples/__init__.py
+samples/consumer.py
+samples/producer.py
