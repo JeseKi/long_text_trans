@@ -8,7 +8,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [sourceLang, setSourceLang] = useState('en');
   const [targetLang, setTargetLang] = useState('zh');
-  const [languages, setLanguages] = useState({}); // 添加此状态和它的更新函数
+  const [languages, setLanguages] = useState({});
+  const [tencentCloudID, setTencentCloudID] = useState('');
+  const [tencentCloudKey, setTencentCloudKey] = useState('');
 
   // 处理文件拖拽事件
   const handleDragOver = (e) => {
@@ -32,12 +34,17 @@ function App() {
       alert('文本不能为空！');
       return;
     }
-    
+    if (!tencentCloudID || !tencentCloudKey) {
+      alert('请提供腾讯云ID和KEY！');
+      return;
+    }
     setIsLoading(true);  // 开始翻译，设置加载状态为true
     axios.post('http://localhost:5000/translate', {
       text: inputText,
       sourceLang: sourceLang,
-      targetLang: targetLang
+      targetLang: targetLang,
+      tencentCloudID: tencentCloudID,
+      tencentCloudKey: tencentCloudKey
     })
     .then(response => {
       setTranslatedText(response.data.translatedText);
@@ -53,16 +60,44 @@ function App() {
 
   useEffect(() => {
     // Load the languages JSON file which now includes local names
+    const savedID = localStorage.getItem('tencentCloudID');
+    const savedKey = localStorage.getItem('tencentCloudKey');
+    if (savedID) setTencentCloudID(savedID);
+    if (savedKey) setTencentCloudKey(savedKey);
     fetch('/languages.json')
       .then(response => response.json())
       .then(data => setLanguages(data))
       .catch(error => console.error('Error loading language options:', error));
   }, []);
-
+  const saveCredentials = () => {
+    localStorage.setItem('tencentCloudID', tencentCloudID);
+    localStorage.setItem('tencentCloudKey', tencentCloudKey);
+    alert('ID和KEY已保存！');
+  };
   return (
     <div>
       <h1 style={{textAlign:'center'}}>长文本翻译器--Powered by Tencent</h1>
       <div className='container'>
+        <p>在这里输入你的腾讯云ID和KEY↓</p>
+      <div>
+        <span>ID :</span>
+          <input
+            className='ID_KEY'
+            type="text"
+            placeholder="腾讯云ID"
+            value={tencentCloudID}
+            onChange={(e) => setTencentCloudID(e.target.value)}
+          />
+          <span>KEY :</span>
+          <input
+            className='ID_KEY'
+            type="password"
+            placeholder="腾讯云KEY"
+            value={tencentCloudKey}
+            onChange={(e) => setTencentCloudKey(e.target.value)}
+          />
+        </div>
+        <button className='button' style={{fontSize:'0.8em'}} onClick={saveCredentials}>保存ID和KEY</button>
         <p>源文本</p>
         <textarea className='text_container'
           placeholder="在这里输入文字或拖入文件"
@@ -75,7 +110,7 @@ function App() {
         />
         <div className='button_container'>
           <span className='lang_button_container'>
-            <span>源语言  </span>
+            <span>源语言</span>
         <select className='button' value={sourceLang} onChange={(e) => setSourceLang(e.target.value)}>
         {Object.keys(languages).map(lang => (
           <option key={lang} value={lang}>
