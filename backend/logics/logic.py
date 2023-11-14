@@ -6,7 +6,6 @@ from tencentcloud.common.exception.tencent_cloud_sdk_exception import TencentClo
 from tencentcloud.tmt.v20180321 import tmt_client, models
 import time
 
-ID , KEY = "AKIDb7R9dyEblhQwEHOOBvTpytcTL2WnrhKm" , "Um4AOPEyYxBEY2RglhVE0fCXjliYBh1A"
 # Constants
 MAX_LENGTH = 5500
 
