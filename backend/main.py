@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 import uvicorn
 
 from translator.translator import Translator
@@ -23,7 +24,7 @@ async def index():
 @app.get("/api/tencent_translate")
 async def tencent_translate(text: str, source_lang: str, target_lang: str):
     result = translator.elementsTranslate(text, source_lang, target_lang, translator._splitText, translator._tencentTranslate)
-    return result
+    return StreamingResponse(result)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=5000, reload=True)

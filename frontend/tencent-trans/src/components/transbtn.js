@@ -23,9 +23,7 @@ export default function TransBtn ( {setOutput} ) {
               result += new TextDecoder().decode(value);
             }
             console.log(result);
-            const jsonResponse = JSON.parse(result); // 解析 JSON 字符串
-            const neededData = jsonResponse[0]; // 获取数组中的第一个元素
-            setOutput(neededData); // 使用 setOutput 更新数据
+            setOutput(result); // 使用 setOutput 更新数据
             
           } catch (error) {
             console.error('Fetch error:', error);

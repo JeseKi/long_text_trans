@@ -1,4 +1,5 @@
 from typing import List ,Callable
+import time
 
 import json
 from tencentcloud.common import credential
@@ -7,10 +8,15 @@ from tencentcloud.common.profile.http_profile import HttpProfile
 from tencentcloud.common.exception.tencent_cloud_sdk_exception import TencentCloudSDKException
 from tencentcloud.tmt.v20180321 import tmt_client, models
 
+from utils.logger import Logger
+
+logger = Logger()
+
 class Translator():
-    def __init__(self, ID: str= "", KEY: str= ""):
+    def __init__(self, ID: str, KEY: str, region: str = "ap-beijing"):
         self.ID = ID
         self.KEY = KEY
+        self.region = region
 
     def elementsTranslate(
                           self,
@@ -28,15 +34,22 @@ class Translator():
         - target_lang: 目标语言
         - split_callback: 用于分割字符串的回调函数
         - translate_callback: 用于翻译字符串的回调函数
+        :return: 流式结果
         """
+        i = 0
         for element in split_callback(text):
             yield translate_callback(element, source_lang, target_lang)
+            # 日志
+            i += 1
+            logger.time_log(f"向服务端发送请求第{i}次",False)
+            # time.sleep(1)
 
     def _splitText(self,text: str) -> List[str]:
         """
         分割字符串
         参数:
         - text: 字符串
+        :return: 分割后的每个元素均符合长度的字符串数组
         """
         # 计算文本长度
         text_length = len(text)
@@ -89,6 +102,7 @@ class Translator():
         text: 字符串
         source_lang: 源语言
         target_lang: 目标语言
+        :return:翻译后的字符串
         """
         try:
             # 使用传入的ID和KEY创建腾讯云API的凭证
@@ -100,7 +114,7 @@ class Translator():
             clientProfile = ClientProfile()
             clientProfile.httpProfile = httpProfile
             # 创建翻译服务的客户端
-            client = tmt_client.TmtClient(cred, "ap-beijing", clientProfile)
+            client = tmt_client.TmtClient(cred, self.region, clientProfile)
 
             # 创建翻译请求对象，并设置所需的参数。
             req = models.TextTranslateRequest()
@@ -122,4 +136,4 @@ class Translator():
             # 捕获并打印异常
             print(err)
             # 如果调用API过程中发生异常，则返回原始文本段
-            return segment
+            return text
