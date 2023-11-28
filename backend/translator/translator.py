@@ -13,7 +13,12 @@ from utils.logger import Logger
 logger = Logger()
 
 class Translator():
-    def __init__(self, ID: str, KEY: str, region: str = "ap-beijing"):
+    def __init__(
+                 self, 
+                 ID: str, 
+                 KEY: str, 
+                 region: str = "ap-beijing"
+                 ):
         self.ID = ID
         self.KEY = KEY
         self.region = region
@@ -41,7 +46,7 @@ class Translator():
             yield translate_callback(element, source_lang, target_lang)
             # 日志
             i += 1
-            logger.time_log(f"向服务端发送请求第{i}次",False)
+            logger.event_time_log(f"向服务端发送请求第{i}次",False)
             # time.sleep(1)
 
     def _splitText(self,text: str) -> List[str]:

@@ -2,9 +2,9 @@ import time
 from datetime import datetime
 
 class Logger():
-    def time_log(self, event:str, isdatatime: bool):
+    def event_time_log(self, event:str, isdatatime: bool):
         """
-        记录时间
+        记录事件和其发生的时间
         :param event: 事件
         :param isdatatime: 是否为系统时间
         :return:
