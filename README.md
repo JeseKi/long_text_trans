@@ -7,11 +7,16 @@
 前端使用React，后端则是使用了flask
 
 ## 使用
+### Windows
 1. 将relase中的`text_trans.zip`下载后在本地解压
 2. 双击`run.bat`
 3. 打开控制台中的链接
 4. 输入自己的腾讯云ID和KEY即可使用(注意保存，避免下次重复输入)
-
+### Linux
+1. 将relase中的`text_trans.zip`下载后在本地解压
+2. 在应用根目录下运行`run.sh`
+3. 打开终端中的链接
+4. 输入自己的腾讯云ID和KEY即可使用(注意保存，避免下次重复输入)
 ## TO DO LIST
 - [ ] 增加翻译结果的保存
 - [ ] 增加更多的可用API
