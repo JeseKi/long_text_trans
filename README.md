@@ -7,6 +7,7 @@
 前端使用React，后端则是使用了flask
 
 ## 使用
+python版本 3.10
 ### Windows
 1. 将relase中的`text_trans.zip`下载后在本地解压
 2. 双击`run.bat`
