@@ -12,5 +12,5 @@ class Logger():
         if isdatatime:
             now_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         else : now_time = time.time()
-        with open('log.txt', 'a') as f:
+        with open('log.txt', 'a', encoding='utf-8') as f:
             f.write(f"[INFO]:{event}发生在{now_time}\n")
