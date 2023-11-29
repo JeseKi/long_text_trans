@@ -19,7 +19,7 @@ export default function IdKeySave () {
         alert("保存成功！");
       };
     return(
-        <div className='container'>
+        <div>
             <p style={{margin:0}}>↓在这里输入你的腾讯云ID和KEY↓</p>
             <div>
             <span>ID :</span>

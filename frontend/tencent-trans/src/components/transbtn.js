@@ -1,7 +1,18 @@
 import React ,{useEffect , useState} from "react"
 import "./transbtn.css"
+import languageData from './languages.json'
 
-export default function TransBtn ( {setOutput} ) {
+export default function TransBtn ( {setOutput } ) {
+    const [sourceLang , setSourceLang] = useState("en");
+    const [targetLang , setTargetLang] = useState("zh");
+    const [targetOptions , setTargetOptions] = useState([])
+
+    useEffect(() => {
+      
+      if (languageData[sourceLang]) {
+        setTargetOptions(languageData[sourceLang]);
+      }
+    }, [sourceLang]);
 
     const fetchData = async (input, sourceLang, targetLang, setOutput) => { // 流式获取数据
         const params = new URLSearchParams({
@@ -10,7 +21,7 @@ export default function TransBtn ( {setOutput} ) {
           target_lang: targetLang,
         });
     
-        const url = `http://localhost:5000/api/tencent_translate?${params.toString()}`;
+        const url = `/api/tencent_translate?${params.toString()}`;
 
         try {
             const response = await fetch(url);
@@ -42,17 +53,21 @@ export default function TransBtn ( {setOutput} ) {
         <div>
             <div className='button_container'>
             <span className='lang_button_container'>
-                <span>源语言</span>
-                <select className='button' id="sourceLang">
-                    <option value="en">英文</option>
-                </select>
+            <span>源语言</span>
+            <select className='button' id="sourceLang" value={sourceLang} onChange={(e) => setSourceLang(e.target.value)}>
+              {Object.keys(languageData).map(lang => (
+                <option key={lang} value={lang}>{languageData[lang][0].name}</option>
+              ))}
+            </select>
             </span>
             <button className='button' id="trans" onClick={translate}>翻译</button>
             <span className='lang_button_container'>
-                <span>目标语言</span>
-                <select className='button' id="targetLang">
-                    <option value="zh">中文</option>
-                </select>
+              <span>目标语言</span>
+              <select className='button' id="targetLang" onChange={(e) => setTargetLang(e.target.value)}>
+                {targetOptions.map(lang => (
+                  <option key={lang.code} value={lang.code}>{lang.name}</option>
+                ))}
+              </select>
             </span>
             </div>
             <div style={{display:'none'}}>翻译中...</div>
