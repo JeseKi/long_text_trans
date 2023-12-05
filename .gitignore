@@ -1,2 +1,4 @@
 /venv
 /frontend/tencent-trans/node_modules
+frontend/text_trans/node_modules
+backend/config.json
