@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 import uvicorn
 
 from translator.translator import Translator
-from config import *
+from config import Config
 
 app = FastAPI()
 app.add_middleware(
@@ -15,19 +15,21 @@ app.add_middleware(
     allow_methods=["*"],  # 允许所有方法
     allow_headers=["*"],  # 允许所有头部
 )
-
 app.mount("/static/", StaticFiles(directory="build/static/", html=True), name="static")
 
-translator = Translator(ID,KEY)
+myConfig = Config()
+tencent_translator = Translator(myConfig.read_config()['tencentCloudID'], myConfig.read_config()['tencentCloudKey'])
+
+@app.post("/config")
+def config(tencent_id: str = "", tencent_key: str = "", openai_key: str = ""):
+    
+    pass
 
 @app.get("/api/tencent_translate")
 async def tencent_translate(text: str, source_lang: str, target_lang: str):
-    result = translator.elementsTranslate(text, source_lang, target_lang, translator._splitText, translator._tencentTranslate)
+    result = tencent_translator.elementsTranslate(text, source_lang, target_lang, tencent_translator._splitText, tencent_translator._tencentTranslate)
     return StreamingResponse(result)
 
 @app.get("/")
 async def index():
     return FileResponse("build/index.html")
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=5000, reload=True)
